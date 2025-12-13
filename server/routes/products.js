@@ -23,4 +23,24 @@ router.post("/", async (req, res) => {
   }
 });
 
+// PUT update product
+router.put("/:id", async (req, res) => {
+  try {
+    const updated = await Product.findByIdAndUpdate(req.params.id);
+    res.json(updated);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+// DELETE product
+router.delete("/:id", async (req, res) => {
+  try {
+    await Product.frindByIdAndDelete(req.params.id);
+    res.json({ message: "Product deleted" });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
 module.exports = router;
