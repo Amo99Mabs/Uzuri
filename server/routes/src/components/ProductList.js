@@ -9,6 +9,16 @@ const ProductList = () => {
   const [success, setSuccess] = useState("");
   const [editing, setEditing] = useState(null); // utilize in step 2
 
+  const handleUpdated = (updated) => {
+    setProducts((prev) =>
+      prev.map((p) => (p._id === updated._id ? updated : p))
+    );
+    setEditing(null);
+    setSuccess("Product updated.");
+  };
+
+  const handleCancelEdit = () => setEditing(null);
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -44,7 +54,13 @@ const ProductList = () => {
       <h2>Uzuri Products</h2>
       {error && <div style={{ color: "crimson" }}>{error}</div>}
       {success && <div style={{ color: "seagreen" }}>{success}</div>}
-      {/* Edit form renders here in Step 2*/}
+      {editing && (
+        <EditProductForm
+          product={editing}
+          onUpdated={handleUpdated}
+          onCancel={handleCancelEdit}
+        />
+      )}
       <ul>
         {products.map((product) => (
           <li key={product._id}>

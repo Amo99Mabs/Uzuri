@@ -7,12 +7,12 @@ const app = express();
 //Middleware
 app.use(express.json());
 
-const productRoutes = require("./routes/products");
+const productRoutes = require("./server/routes/products");
 app.use("/api/products", productRoutes);
 
 //Test route
 app.get("/", (req, res) => {
-  res.send("Uzuri backend running");
+  res.send("Uzuri backend running!");
 });
 
 // MongoDB connection
