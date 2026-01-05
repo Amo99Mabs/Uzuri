@@ -11,7 +11,7 @@ app.use(express.json());
 app.use("/api/products", productRoutes);
 
 mongoose
-  .connect("mongodb://localhost:27017/uzuri", {
+  .connect("mongodb://127.0.0.1:27017/uzuri", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
