@@ -60,6 +60,14 @@ const ProductList = () => {
           onUpdated={handleUpdated}
           onCancel={handleCancelEdit}
         />
+      {editing && (
+  <form onSubmit={handleUpdate}>
+    <input value={editProduct.name} onChange={e => setEditProduct({...editProduct, name: e.target.value})} />
+    <input value={editProduct.price} onChange={e => setEditProduct({...editProduct, price: e.target.value})} />
+    <button type="submit">Save</button>
+  </form>
+)}
+
       )}
       <ul>
         {products.map((product) => (
