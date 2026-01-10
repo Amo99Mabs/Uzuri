@@ -5,6 +5,7 @@ const Product = require("../models/Product");
 // GET all products
 router.get("/", async (req, res) => {
   try {
+    
     const products = await Product.find();
     res.json(products);
   } catch (err) {
@@ -26,13 +27,20 @@ router.post("/", async (req, res) => {
 // PUT update product
 router.put("/:id", async (req, res) => {
   try {
-    const updated = await Product.findByIdAndUpdate(req.params.id, req.body, {
+    const { name, price, description, stock } = req.body; 
+    if (!name || !price) { 
+      return res.status(400).json({ error: "Name and price are required." }); 
+    }
+    const updated = await Product.findByIdAndUpdate(
+      req.params.id, req.body, {
       new: true,
       runValidators: true,
     });
+    if (!updated) { 
+      return res.status(404).json({ error: "Product not found." }); }
     res.json(updated);
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(404).json({ error: "Server error", details: err.message });
   }
 });
 
@@ -42,7 +50,7 @@ router.delete("/:id", async (req, res) => {
     await Product.frindByIdAndDelete(req.params.id);
     res.json({ message: "Product deleted" });
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(500).json({ error: err.message });
   }
 });
 
