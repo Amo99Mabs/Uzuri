@@ -62,7 +62,7 @@ const ProductList = () => {
       setError("Delete failed");
     }
   };
-  const handleStarEdit = (product) => {
+  const handleStartEdit = (product) => {
     setEditing(product);
     setSuccess("");
     setError("");
@@ -80,11 +80,21 @@ const ProductList = () => {
           onCancel={handleCancelEdit}
         />
       {editing && (
-  <form onSubmit={handleUpdate}>
-    <input value={editProduct.name} onChange={e => setEditProduct({...editProduct, name: e.target.value})} />
-    <input value={editProduct.price} onChange={e => setEditProduct({...editProduct, price: e.target.value})} />
-    <button type="submit">Save</button>
-  </form>
+ <form onSubmit={handleUpdate}>
+  <input
+    value={editProduct.name}
+    onChange={e => setEditProduct({ ...editProduct, name: e.target.value })}
+    placeholder="Product name"
+  />
+  <input
+    value={editProduct.price}
+    onChange={e => setEditProduct({ ...editProduct, price: e.target.value })}
+    placeholder="Price"
+  />
+  <button type="submit">Save</button>
+  <button type="button" onClick={handleCancelEdit}>Cancel</button>
+</form>
+
 )}
 
       )}
