@@ -71,8 +71,9 @@ const ProductList = () => {
   return (
     <div>
       <h2>Uzuri Products</h2>
-      {error && <div style={{ color: "crimson" }}>{error}</div>}
-      {success && <div style={{ color: "seagreen" }}>{success}</div>}
+     {error && <p className="error">{error}</p>}
+{success && <p className="success">{success}</p>}
+
       {editing && (
         <EditProductForm
           product={editing}
@@ -80,33 +81,20 @@ const ProductList = () => {
           onCancel={handleCancelEdit}
         />
       {editing && (
- <form onSubmit={handleUpdate}>
-  <input
-    value={editProduct.name}
-    onChange={e => setEditProduct({ ...editProduct, name: e.target.value })}
-    placeholder="Product name"
-  />
-  <input
-    value={editProduct.price}
-    onChange={e => setEditProduct({ ...editProduct, price: e.target.value })}
-    placeholder="Price"
-  />
-  <button type="submit">Save</button>
-  <button type="button" onClick={handleCancelEdit}>Cancel</button>
-</form>
+ <EditProductForm product={editing} onUpdated={handleUpdated} onCancel={handleCancelEdit} />
 
 )}
 
       )}
       <ul>
         {products.map((product) => (
-          <li key={product._id}>
-            {" "}
+          <li key={product._id} className="product-card">
             <strong>{product.name}</strong> – R{product.price}
             {product.description && <p>{product.description}</p>}
             <div style={{ display: "flex", gap: "8px", marginTop: "6px" }}>
-              <button onClick={() => handleStartEdit(product)}>Edit</button>
-              <button onClick={() => handleDelete(product._id)}>Delete</button>
+            <button className="btn-edit" onClick={() => handleStartEdit(product)}>Edit</button>
+<button className="btn-delete" onClick={() => handleDelete(product._id)}>Delete</button>
+
             </div>
           </li>
         ))}
