@@ -59,7 +59,7 @@
 .success { color: seagreen; font-weight: bold; margin-top: 10px; }
 .error { color: crimson; font-weight: bold; margin-top: 10px; }
 
-
+ul { list-style: none; padding: 0; } li { margin-bottom: 16px; }
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
