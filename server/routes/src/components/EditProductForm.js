@@ -1,5 +1,5 @@
-import React, { UseState } from "react";
-import { updateProduct } from ".../api";
+import React, { useState } from "react";
+import { updateProduct } from "../api";
 const EditProductForm = ({ product, onUpdated, onCancel }) => {
   const [formData, setFormData] = useState({
     name: product.name || "",
@@ -32,29 +32,10 @@ const EditProductForm = ({ product, onUpdated, onCancel }) => {
       setSaving(false);
     }
   };
-  return (
-    <form
-      onSubmit={handleSubmit}
-      style={{
-        border: "1px solid #ddd",
-        padding: 12,
-        borderRadius: 8,
-        margin: "12px 0",
-      }}
-    >
-      <h3>Edit product</h3>
-      {error && <div style={{ color: "crimson" }}>{error}</div>}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "120px 1fr",
-          gap: 8,
-          marginBottom: 8,
-        }}
-      >
+    return ( <form onSubmit={handleSubmit} className="product-card"> <h3>Edit product</h3> {error && <p className="error">{error}</p>} <div className="form-grid">
         <label>Name</label>
         <input
-          name="price"
+          name="name"
           value={formData.name}
           onChange={handleChange}
           required
@@ -88,11 +69,11 @@ const EditProductForm = ({ product, onUpdated, onCancel }) => {
         />
       </div>
       <div style={{ display: "flex", gap: 8 }}>
-        <button type="submit" disabled={saving}>
+        <button type="submit" className="btn-edit" disabled={saving}>
           {saving ? "Saving..." : "Save"}
         </button>
-        <button type="button" onClick={onCancel}>
-          Cnacel
+        <button type="button" className="btn-delete" onClick={onCancel}>
+          Cancel
         </button>
       </div>
     </form>
