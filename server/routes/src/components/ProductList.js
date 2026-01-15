@@ -8,25 +8,6 @@ const ProductList = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [editing, setEditing] = useState(null); // utilize in step 2
-  const [editingId, setEditingId] = useState(null);
-  const [editProduct, setEditProduct] = useState({ name: "", price: "", description: "", stock: 0 });
-
-
-  const handleUpdate = async  (e) => {
-    e.preventDefault();
-    try {
-      const res = await fetch(`http://localhost:5004/api/products/${editingId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(editProduct),
-      });
-      const updated = await res.json();
-      setProducts(prev => prev.map(p => p._id === updated._id ? updated : p));
-      setEditingId(null);
-      } catch (err) {
-        console.error("Update failed:", err);
-      }
-  };
 
   const handleUpdated = (updated) => {
     setProducts((prev) =>
@@ -36,7 +17,7 @@ const ProductList = () => {
     setSuccess("Product updated.");
   };
 
-  const handleCancelEdit = () => setEditing(null);
+  const handleCancelEdit = () => setEditing(null); setSuccess(""); setError(""); };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -72,24 +53,18 @@ const ProductList = () => {
     <div>
       <h2>Uzuri Products</h2>
      {error && <p className="error">{error}</p>}
-{success && <p className="success">{success}</p>}
-
+     {success && <p className="success">{success}</p>}
+     
       {editing && (
-        <EditProductForm
-          product={editing}
-          onUpdated={handleUpdated}
-          onCancel={handleCancelEdit}
-        />
-      {editing && (
- <EditProductForm product={editing} onUpdated={handleUpdated} onCancel={handleCancelEdit} />
-
-)}
+ <EditProductForm product={editing} 
+  onUpdated={handleUpdated} onCancel={handleCancelEdit} />
 
       )}
       <ul>
         {products.map((product) => (
           <li key={product._id} className="product-card">
-            <strong>{product.name}</strong> – R{product.price}
+            <h3>{product.name}</h3> 
+            <p>Price: R{product.price}</p>
             {product.description && <p>{product.description}</p>}
             <div style={{ display: "flex", gap: "8px", marginTop: "6px" }}>
             <button className="btn-edit" onClick={() => handleStartEdit(product)}>Edit</button>
