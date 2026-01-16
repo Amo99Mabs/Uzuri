@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getProducts, deleteProduct } from "../api";
 import EditProductForm from "./EditProductForm";
+import AddProductForm from "./AddProductForm";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -17,7 +18,11 @@ const ProductList = () => {
     setSuccess("Product updated.");
   };
 
-  const handleCancelEdit = () => setEditing(null); setSuccess(""); setError(""); };
+  const handleCancelEdit = () => {
+    setEditing(null); 
+    setSuccess(""); 
+    setError("");
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -56,10 +61,19 @@ const ProductList = () => {
      {success && <p className="success">{success}</p>}
      
       {editing && (
- <EditProductForm product={editing} 
-  onUpdated={handleUpdated} onCancel={handleCancelEdit} />
-
-      )}
+ <EditProductForm product={editing}
+   product={editing}
+   onUpdated={handleUpdated} 
+   onCancel={handleCancelEdit} 
+ /> 
+)}
+  <AddProductForm 
+     onCreated={(newProduct) => {
+     setProducts((prev) => [...prev, newProduct]);
+     setSuccess("Product added.");
+     setError("");
+      }}
+    />
       <ul>
         {products.map((product) => (
           <li key={product._id} className="product-card">
