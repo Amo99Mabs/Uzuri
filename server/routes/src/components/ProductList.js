@@ -8,7 +8,8 @@ const ProductList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [editing, setEditing] = useState(null); // utilize in step 2
+  const [editing, setEditing] = useState(null);
+  const [search, setSearch] = useState("");
 
   const handleUpdated = (updated) => {
     setProducts((prev) =>
@@ -54,6 +55,7 @@ const ProductList = () => {
     setError("");
   };
   if (loading) return <p>Loading products...</p>;
+  const filteredProducts = products.filter((p) => p.name.toLowerCase().includes(search.toLowerCase()) );
   return (
     <div>
       <h2>Uzuri Products</h2>
@@ -74,6 +76,10 @@ const ProductList = () => {
      setError("");
       }}
     />
+    <input 
+       type="text" placeholder="Search products..." value={search} onChange={(e) => setSearch(e.target.value)}
+        style={{ marginBottom: "12px", padding: "6px", width: "60%" }}
+      />
       <ul>
         {products.map((product) => (
           <li key={product._id} className="product-card">
