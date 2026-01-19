@@ -10,6 +10,7 @@ const ProductList = () => {
   const [success, setSuccess] = useState("");
   const [editing, setEditing] = useState(null);
   const [search, setSearch] = useState("");
+  const [sort, setSort] = useState("");
 
   const handleUpdated = (updated) => {
     setProducts((prev) =>
@@ -55,7 +56,12 @@ const ProductList = () => {
     setError("");
   };
   if (loading) return <p>Loading products...</p>;
+  
   const filteredProducts = products.filter((p) => p.name.toLowerCase().includes(search.toLowerCase()) );
+  let sortedProducts = [...filteredProducts];
+  if (sort === "priceAsc") sortedProducts.sort((a, b) => a.price - b.price);
+  if (sort === "priceDesc") sortedProducts.sort((a, b) => b.price - a.price);
+  if (sort === "stock") sortedProducts.sort((a, b) => b.stock - a.stock;
   return (
     <div>
       <h2>Uzuri Products</h2>
@@ -80,15 +86,22 @@ const ProductList = () => {
        type="text" placeholder="Search products..." value={search} onChange={(e) => setSearch(e.target.value)}
         style={{ marginBottom: "12px", padding: "6px", width: "60%" }}
       />
+    <select value="{sort} onChange={(e) => setSort(e.target.value)} style={{ marginBottom: "12px", padding: "6px" }}
+    >
+        <option value="">Sort by</option>
+        <option value="priceAsc">Price: Low to High</option>
+        <option value="priceDesc">Price: High to Low</option>
+        <option value="stock">Stock</option>
+     </select>
       <ul>
-        {products.map((product) => (
+        {sortedProducts.map((product) => (
           <li key={product._id} className="product-card">
             <h3>{product.name}</h3> 
             <p>Price: R{product.price}</p>
             {product.description && <p>{product.description}</p>}
             <div style={{ display: "flex", gap: "8px", marginTop: "6px" }}>
             <button className="btn-edit" onClick={() => handleStartEdit(product)}>Edit</button>
-<button className="btn-delete" onClick={() => handleDelete(product._id)}>Delete</button>
+            <button className="btn-delete" onClick={() => handleDelete(product._id)}>Delete</button>
 
             </div>
           </li>
