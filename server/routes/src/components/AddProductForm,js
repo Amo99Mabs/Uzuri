@@ -9,13 +9,28 @@ const AddProductForm = ({ onCreated }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: name === "price" || name === "stock" ? Number(value) : value })); };
-  }; 
+  setFormData((prev) => ({
+  ...prev,
+  [name]: name === "price" || name === "stock" ? Number(value) : value,
+}));
+};
+
   const handleSubmit = async (e) => {
   e.preventDefault();
   setSaving(true);
   setError("");
   setSuccess("");
+if (formData.price <= 0) {
+  setError("Price must be greater than 0.");
+  setSaving(false);
+  return;
+}
+if (formData.stock < 0) {
+  setError("Stock cannot be negative.");
+  setSaving(false);
+  return;
+}
+
   try {
      const newProduct = await createProduct(formData);
      onCreated(newProduct);
@@ -32,8 +47,9 @@ return (
   <form onSubmit={handleSubmit} className="product-card">
   <h3>Add Product</h3>
   {error && <p className="error">{error}</p>}
-  {success && <p className="success">{success}</p>
-  <input name="name" value={formData.name} onChange={handleChange} placeholder="Name" required />
+{success && <p className="success">{success}</p>}
+<input name="name" value={formData.name} onChange={handleChange} placeholder="Name" required />
+
   <input name="price" type="number" value={formData.price} onChange={handleChange} placeholder="Price" required />
   <input name="description" value={formData.description} onChange={handleChange} placeholder="Description" />
   <input name="stock" type="number" value={formData.stock} onChange={handleChange} placeholder="Stock" />
