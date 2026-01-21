@@ -11,7 +11,7 @@ const ProductDetails = ({ products }) => {
     <div>
      <h2>{product.name}</h2> 
      {product.imageUrl && (
-       <img src={product.imageUrl} alt="{product.name} /> 
+       <img src={product.imageUrl} alt={product.name} /> 
      )} 
      <p>Price: R{product.price}</p> 
      <p>Stock: {product.stock}</p>
