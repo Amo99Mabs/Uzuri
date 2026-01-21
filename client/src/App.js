@@ -1,3 +1,5 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ProductDetails from "./components/ProductDetails";
 import React, { useState, useEffect } from "react";
 import ProductList from "./components/ProductList";
 import ProductForm from "./components/ProductForm";
@@ -28,13 +30,19 @@ function App() {
   };
 
   return (
+    <BrowserRouter>
     <div className="App">
       <h1>Uzuri Boutique</h1>
       <ProductForm onProductAdded={handleProductAdded} />
       {loading && <p>Loading products...</p>}
       {error && <p className="error">{error}</p>}
-      {!loading && !error && <ProductList products={products} />}
+      {!loading && !error && ( 
+        <Routes>
+          <Route path="/" element={<ProductList products={products} />} />
+          <Route path="/products/:id" element={<ProductDetails products={products} />} />
+        </Routes>
     </div>
+  </BrowserRouter>
   );
 }
 export default App;
