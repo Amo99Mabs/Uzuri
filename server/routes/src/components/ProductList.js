@@ -61,7 +61,11 @@ const ProductList = () => {
   let sortedProducts = [...filteredProducts];
   if (sort === "priceAsc") sortedProducts.sort((a, b) => a.price - b.price);
   if (sort === "priceDesc") sortedProducts.sort((a, b) => b.price - a.price);
-  if (sort === "stock") sortedProducts.sort((a, b) => b.stock - a.stock;
+if (sort === "stock") sortedProducts.sort((a, b) => b.stock - a.stock);
+  if (sort === "nameAsc") sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
+if (sort === "nameDesc") sortedProducts.sort((a, b) => b.name.localeCompare(a.name));
+
+
   return (
     <div>
       <h2>Uzuri Products</h2>
@@ -86,12 +90,20 @@ const ProductList = () => {
        type="text" placeholder="Search products..." value={search} onChange={(e) => setSearch(e.target.value)}
         style={{ marginBottom: "12px", padding: "6px", width: "60%" }}
       />
-    <select value="{sort} onChange={(e) => setSort(e.target.value)} style={{ marginBottom: "12px", padding: "6px" }}
-    >
+ 
+ <select 
+  value={sort} 
+  onChange={(e) => setSort(e.target.value)} 
+  style={{ marginBottom: "12px", padding: "6px" }}
+>
+
         <option value="">Sort by</option>
         <option value="priceAsc">Price: Low to High</option>
         <option value="priceDesc">Price: High to Low</option>
         <option value="stock">Stock</option>
+  <option value="nameAsc">Name: A–Z</option>
+<option value="nameDesc">Name: Z–A</option>
+
      </select>
       <ul>
         {sortedProducts.map((product) => (
