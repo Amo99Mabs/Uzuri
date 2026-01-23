@@ -9,13 +9,21 @@ const ProductDetails = ({ products }) => {
 
   return ( 
     <div>
-     <h2>{product.name}</h2> 
-     {product.imageUrl && (
+      <h2>{product.name}</h2> 
+      {product.imageUrl && (
        <img src={product.imageUrl} alt={product.name} /> 
      )} 
      <p>Price: R{product.price}</p> 
      <p>Stock: {product.stock}</p>
      <p>{product.description}</p>
+       
+     {product.category && <p>Category: {product.category}</p>}
+     {product.sku && <p>SKU: {product.sku}</p>}
+     {product.createdAt && <p>Added on: {new Date(product.createdAt).toLocaleDateString()}</p>}
+
+     <button onClick={() => window.history.back()} className="btn-back">
+       ← Back to Products
+     </button>
    </div>
  );
 };
