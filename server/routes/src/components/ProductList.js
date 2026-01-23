@@ -57,13 +57,16 @@ const ProductList = () => {
   };
   if (loading) return <p>Loading products...</p>;
   
-  const filteredProducts = products.filter((p) => p.name.toLowerCase().includes(search.toLowerCase()) );
+  const filteredProducts = products.filter((p) => 
+    p.name.toLowerCase().includes(search.toLowerCase())
+);
+  
   let sortedProducts = [...filteredProducts];
   if (sort === "priceAsc") sortedProducts.sort((a, b) => a.price - b.price);
   if (sort === "priceDesc") sortedProducts.sort((a, b) => b.price - a.price);
-if (sort === "stock") sortedProducts.sort((a, b) => b.stock - a.stock);
+  if (sort === "stock") sortedProducts.sort((a, b) => b.stock - a.stock);
   if (sort === "nameAsc") sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
-if (sort === "nameDesc") sortedProducts.sort((a, b) => b.name.localeCompare(a.name));
+  if (sort === "nameDesc") sortedProducts.sort((a, b) => b.name.localeCompare(a.name));
 
 
   return (
@@ -71,9 +74,8 @@ if (sort === "nameDesc") sortedProducts.sort((a, b) => b.name.localeCompare(a.na
       <h2>Uzuri Products</h2>
      {error && <p className="error">{error}</p>}
      {success && <p className="success">{success}</p>}
-     
-      {editing && (
- <EditProductForm product={editing}
+{editing && (
+ <EditProductForm 
    product={editing}
    onUpdated={handleUpdated} 
    onCancel={handleCancelEdit} 
