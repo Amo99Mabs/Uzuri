@@ -15,21 +15,32 @@ const AddProductForm = ({ onCreated }) => {
 }));
 };
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
   setSaving(true);
   setError("");
   setSuccess("");
-if (formData.price <= 0) {
-  setError("Price must be greater than 0.");
-  setSaving(false);
-  return;
-}
-if (formData.stock < 0) {
-  setError("Stock cannot be negative.");
-  setSaving(false);
-  return;
-}
+
+  if (formData.name.trim().length < 3) { 
+    setError("Name must be at least 3 characters."); 
+    setSaving(false); 
+    return; } 
+  if (!formData.description.trim()) { 
+    setError("Description cannot be empty."); 
+    setSaving(false); 
+    return; 
+  }
+
+  if (formData.price <= 0) {
+    setError("Price must be greater than 0.");
+    setSaving(false);
+    return;
+  }
+  if (formData.stock < 0) {
+    setError("Stock cannot be negative.");
+    setSaving(false);
+    return;
+  }
 
   try {
      const newProduct = await createProduct(formData);
@@ -45,18 +56,18 @@ if (formData.stock < 0) {
 
 return (
   <form onSubmit={handleSubmit} className="product-card">
-  <h3>Add Product</h3>
-  {error && <p className="error">{error}</p>}
-{success && <p className="success">{success}</p>}
-<input name="name" value={formData.name} onChange={handleChange} placeholder="Name" required />
+    <h3>Add Product</h3>
+    {error && <p className="error">{error}</p>}
+    {success && <p className="success">{success}</p>}
+  <input name="name" value={formData.name} onChange={handleChange} placeholder="Name" required />
 
   <input name="price" type="number" value={formData.price} onChange={handleChange} placeholder="Price" required />
   <input name="description" value={formData.description} onChange={handleChange} placeholder="Description" />
   <input name="stock" type="number" value={formData.stock} onChange={handleChange} placeholder="Stock" />
   <button type="submit" className="btn-edit" disabled={saving}>
     {saving ? "Saving..." : "Add"} 
-   </button> 
- </form> 
+  </button> 
+</form> 
 ); 
 }; 
 export default AddProductForm;
