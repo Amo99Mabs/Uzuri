@@ -8,7 +8,7 @@ const ProductDetails = ({ products }) => {
   if (!product) return <p>Product not found.</p>;
 
   return ( 
-    <div>
+    <div className="product-details-card">
       <h2>{product.name}</h2> 
       {product.imageUrl && (
        <img src={product.imageUrl} alt={product.name} /> 
