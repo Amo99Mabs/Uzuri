@@ -68,7 +68,12 @@ const ProductList = () => {
   if (sort === "nameAsc") sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
   if (sort === "nameDesc") sortedProducts.sort((a, b) => b.name.localeCompare(a.name));
 
-
+  const highlightMatch = (name) => {
+    if (!search) return name;
+    const regex = new RegExp('(${search})`, "gi");
+    return name.replace(regex, "<strong>$1</strong>");
+  };
+  
   return (
     <div>
       <h2>Uzuri Products</h2>
@@ -99,18 +104,27 @@ const ProductList = () => {
   style={{ marginBottom: "12px", padding: "6px" }}
 >
 
-        <option value="">Sort by</option>
-        <option value="priceAsc">Price: Low to High</option>
-        <option value="priceDesc">Price: High to Low</option>
-        <option value="stock">Stock</option>
+  <option value="">Sort by</option>
+  <option value="priceAsc">Price: Low to High</option>
+  <option value="priceDesc">Price: High to Low</option>
+  <option value="stock">Stock</option>
   <option value="nameAsc">Name: A–Z</option>
-<option value="nameDesc">Name: Z–A</option>
-
-     </select>
+  <option value="nameDesc">Name: Z–A</option>
+  </select>
+  <button onClick={() => setSort("")} className="btn-reset">
+    Reset Sort
+  </button> 
+{sortedProducts.length === 0 ? {
+  <p>No products found.</p>
+  ) : (
       <ul>
         {sortedProducts.map((product) => (
           <li key={product._id} className="product-card">
-            <h3>{product.name}</h3> 
+            <h3
+               dangerouslySetInnerHTML={{
+                 --html: highlightMatch(product.name),
+                   }}
+                  /> 
             <p>Price: R{product.price}</p>
             {product.description && <p>{product.description}</p>}
             <div style={{ display: "flex", gap: "8px", marginTop: "6px" }}>
