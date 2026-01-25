@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { createProduct } from "../api";
 
 const AddProductForm = ({ onCreated }) => {
@@ -6,6 +6,12 @@ const AddProductForm = ({ onCreated }) => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [saving, setSaving] = useState(false);
+  useEffect(() => {
+     if (success) {
+       const timer = setTimeout(() => setSuccess(""), 3000)
+       return () => clearTimeout(timer);
+     }
+   }, [success]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
