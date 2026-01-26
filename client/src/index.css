@@ -67,3 +67,26 @@ code {
 .btn-back:hover {
   background-color: #ddd;
 }
+.product-list-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.product-card h3 {
+  margin: 0 0 8px;
+  color: #333;
+}
+
+.btn-reset {
+  background: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 6px 12px; 
+  margin-bottom: 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.btn-reset:hover{
+  background: #45a049;
+}
