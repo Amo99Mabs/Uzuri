@@ -90,3 +90,29 @@ code {
 .btn-reset:hover{
   background: #45a049;
 }
+.product-card input {
+  display: block;
+  width: 100%;
+  margin: 8px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+.product-card input:focus {
+  border-color: #2196f3;
+  padding: none;
+  box-shadow: 0 0 4px rgba(33, 150, 243, 0.4);
+} 
+.product-card button {
+  margin-top: 12px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.product-card button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
