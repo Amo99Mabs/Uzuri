@@ -41,6 +41,7 @@ function App() {
           <Route path="/" element={<ProductList products={products} />} />
           <Route path="/products/:id" element={<ProductDetails products={products} />} />
         </Routes>
+      )}
     </div>
   </BrowserRouter>
   );
