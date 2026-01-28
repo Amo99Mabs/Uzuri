@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getProducts, deleteProduct } from "../api";
 import EditProductForm from "./EditProductForm";
 import AddProductForm from "./AddProductForm";
+import { Link } from "react-router-dom";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -70,7 +71,8 @@ const ProductList = () => {
 
   const highlightMatch = (name) => {
     if (!search) return name;
-    const regex = new RegExp('(${search})`, "gi");
+   const regex = new RegExp(`(${search})`, "gi");
+
     return name.replace(regex, "<strong>$1</strong>");
   };
   
@@ -114,17 +116,15 @@ const ProductList = () => {
   <button onClick={() => setSort("")} className="btn-reset">
     Reset Sort
   </button> 
-{sortedProducts.length === 0 ? {
+{sortedProducts.length === 0 ? (
   <p>No products found.</p>
   ) : (
       <ul>
         {sortedProducts.map((product) => (
           <li key={product._id} className="product-card">
-            <h3
-               dangerouslySetInnerHTML={{
-                 --html: highlightMatch(product.name),
-                   }}
-                  /> 
+            <h3>
+              <Link to={`/products/${product._id}`}>{product.name}</Link>
+              </h3>
             <p>Price: R{product.price}</p>
             {product.description && <p>{product.description}</p>}
             <div style={{ display: "flex", gap: "8px", marginTop: "6px" }}>
