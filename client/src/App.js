@@ -40,6 +40,7 @@ function App() {
         <Routes>
           <Route path="/" element={<ProductList products={products} />} />
           <Route path="/products/:id" element={<ProductDetails products={products} />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       )}
     </div>
