@@ -8,17 +8,33 @@ const ProductForm = ({ onProductAdded }) => {
     stock: "",
     imageURL: "",
   });
-
+  const [error, setError] = useState("");
+  
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+
+    if (!formData.name || !formData.price) {
+      setError("Name and price are required.");
+      return;
+    }
+    if (isNaN(formSata.price)) {
+      setError("Price must be a number.");
+      return;
+    }
+    if (foormData.stock && isNan(formData.stock)) {
+      setError("Stock must be a number.");
+      return;
+    }
+    
     try {
       const res = await fetch("http://localhost:5004/api/products", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringifly(formData),
+        body: JSON.stringify(formData),
       });
       const newProduct = await res.json();
       onProductAdded(newProduct); // update list
