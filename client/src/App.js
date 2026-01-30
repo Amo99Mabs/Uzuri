@@ -34,7 +34,8 @@ function App() {
     <div className="App">
       <h1>Uzuri Boutique</h1>
       <ProductForm onProductAdded={handleProductAdded} />
-      {loading && <p>Loading products...</p>}
+      {loading && <div className="spinner"></div>}
+
       {error && <p className="error">{error}</p>}
       {!loading && !error && ( 
         <Routes>
