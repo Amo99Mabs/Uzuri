@@ -1,6 +1,9 @@
 # Uzuri Boutique App
 
-## Features
+A full‑stack product management app built with React, Node.js, and Express. Users can add, edit, delete, and view products with polished navigation and UX feedback. 
+
+---
+## 🚀 Features
 - Full CRUD (Create, Read, Update, Delete) for products
 - Styled product cards with hover effects
 - Success/error feedback messages
@@ -10,17 +13,18 @@
 - ProductDetails with back navigation and extra fields
 - Validated AddProductForm with inline error feedback
 - Success messages auto-clear after 3 seconds
+- **Loading spinner** for better UX during fetch
+- **Delete confirmation prompt** to prevent accidental removals
+- **404 NotFound route** for invalid URLs
+- **React Router integration** for smooth navigation
 
-## Tech Stack
-- React (frontend)
-- Node.js + Express (backend)
-- MongoDB (database)
+## 🛠️ Tech Stack
+- **Frontend:** React, React Router, CSS
+- **Backend:** Node.js + Express
+- **Database:** MongoDB
 
 ## How to Run
-1. Clone the repo
-2. Run `npm install`
-3. Start backend: `npm run server`
-4. Start frontend: `npm start`
+1. Clone the repo: ```bash git clone https://github.com/yourusername/uzuri-boutique.git cd uzuri-boutique
 
 ## Next Steps 
 - Deploy to Netlify/Vercel
