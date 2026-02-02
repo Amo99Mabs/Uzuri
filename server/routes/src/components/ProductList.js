@@ -126,6 +126,7 @@ const ProductList = () => {
         {sortedProducts.map((product) => (
           <li key={product._id} className="product-card">
             <h3>
+  {product.imageURL && ( <img src={product.imageURL} alt={product.name} style={{ maxWidth: "120px", borderRadius: "6px", marginBottom: "8px" }} /> )}
               <Link to={`/products/${product._id}`}>{product.name}</Link>
               </h3>
             <p>Price: R{product.price}</p>
