@@ -5,6 +5,7 @@ import AddProductForm from "./AddProductForm";
 import { Link } from "react-router-dom";
 
 const ProductList = () => {
+  const [category, setCategory] = useState("");
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -99,26 +100,38 @@ const ProductList = () => {
       }}
     />
     <input 
-       type="text" placeholder="Search products..." value={search} onChange={(e) => setSearch(e.target.value)}
-        style={{ marginBottom: "12px", padding: "6px", width: "60%" }}
+       type="text" 
+       placeholder="Search products..." 
+       value={search} 
+       onChange={(e) => setSearch(e.target.value)}
+       style={{ marginBottom: "12px", padding: "6px", width: "60%" }}
       />
- 
  <select 
-  value={sort} 
-  onChange={(e) => setSort(e.target.value)} 
-  style={{ marginBottom: "12px", padding: "6px" }}
->
+  value={category} 
+  onChange={(e) => setCategory(e.target.value)} 
+  style={{ marginBottom: "12px", padding: "6px" }} 
+> 
+ <option value="">All Categories</option> 
+ <option value="Clothing">Clothing</option> 
+ <option value="Shoes">Shoes</option> 
+ <option value="Accessories">Accessories</option> 
+</select> 
+<select 
+ value={sort} 
+ onChange={(e) => setSort(e.target.value)} 
+ style={{ marginBottom: "12px", padding: "6px" }} 
+> 
+ <option value="">Sort by</option> 
+ <option value="priceAsc">Price: Low to High</option> 
+ <option value="priceDesc">Price: High to Low</option> 
+ <option value="stock">Stock</option> 
+ <option value="nameAsc">Name: A–Z</option> 
+ <option value="nameDesc">Name: Z–A</option> 
+</select>
 
-  <option value="">Sort by</option>
-  <option value="priceAsc">Price: Low to High</option>
-  <option value="priceDesc">Price: High to Low</option>
-  <option value="stock">Stock</option>
-  <option value="nameAsc">Name: A–Z</option>
-  <option value="nameDesc">Name: Z–A</option>
-  </select>
-  <button onClick={() => setSort("")} className="btn-reset">
-    Reset Sort
-  </button> 
+<button onClick={() => setSort("")} className="btn-reset">
+  Reset Sort
+</button> 
 {sortedProducts.length === 0 ? (
   <p>No products found.</p>
   ) : (
