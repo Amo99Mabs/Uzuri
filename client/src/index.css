@@ -21,6 +21,14 @@ code {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease;
 }
+.product-card img {
+  max-width: 120px;
+  height: auto;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  dissplay: block;
+}
 .product-card:hover {
   transform: translateY(-3px);
 }
