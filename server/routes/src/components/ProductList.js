@@ -20,6 +20,7 @@ const ProductList = () => {
     );
     setEditing(null);
     setSuccess("Product updated.");
+    setTimeout(() => setSuccess(""), 3000);
   };
 
   const handleCancelEdit = () => {
@@ -140,7 +141,9 @@ const ProductList = () => {
           <li key={product._id} className="product-card">
             <h3>
   {product.imageURL && ( <img src={product.imageURL} alt={product.name} style={{ maxWidth: "120px", borderRadius: "6px", marginBottom: "8px" }} /> )}
-              <Link to={`/products/${product._id}`}>{product.name}</Link>
+              <Link to={`/products/${product._id`} 
+              dangerouslySetInnerHTML={{ __html: highlightMatch(product.name) }} 
+            />
               </h3>
             <p>Price: R{product.price}</p>
             {product.description && <p>{product.description}</p>}
