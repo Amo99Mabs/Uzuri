@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import ProductList from "./components/ProductList";
 import ProductForm from "./components/ProductForm";
 import NotFound from "./components/NotFound";
+import Spinner from "./components/Spinner";
 function App() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -34,7 +35,7 @@ function App() {
     <div className="App">
       <h1>Uzuri Boutique</h1>
       <ProductForm onProductAdded={handleProductAdded} />
-      {loading && <div className="spinner"></div>}
+      {loading && <Spinner />}
 
       {error && <p className="error">{error}</p>}
       {!loading && !error && ( 
