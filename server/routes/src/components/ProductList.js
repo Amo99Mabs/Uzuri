@@ -3,6 +3,7 @@ import { getProducts, deleteProduct } from "../api";
 import EditProductForm from "./EditProductForm";
 import AddProductForm from "./AddProductForm";
 import { Link } from "react-router-dom";
+import Spinner from "./Spinner";
 
 const ProductList = () => {
   const [category, setCategory] = useState("");
@@ -61,11 +62,15 @@ const ProductList = () => {
     setSuccess("");
     setError("");
   };
-  if (loading) return <p>Loading products...</p>;
+  if (loading) return <Spinner />;
   
-  const filteredProducts = products.filter((p) => 
+  const filteredProducts = products
+    .filter((p) => 
     p.name.toLowerCase().includes(search.toLowerCase())
-);
+  )
+    .filter((p) => 
+      category ? p.category === category : true
+  );
   
   let sortedProducts = [...filteredProducts];
   if (sort === "priceAsc") sortedProducts.sort((a, b) => a.price - b.price);
@@ -130,8 +135,10 @@ const ProductList = () => {
  <option value="nameDesc">Name: Z–A</option> 
 </select>
 
-<button onClick={() => setSort("")} className="btn-reset">
-  Reset Sort
+<button 
+  onClick={() => { setSearch(""); setCategory(""); setSort(""); }} 
+  className="btn-reset">
+  Reset Filters
 </button> 
 {sortedProducts.length === 0 ? (
   <p>No products found.</p>
@@ -148,8 +155,8 @@ const ProductList = () => {
             <p>Price: R{product.price}</p>
             {product.description && <p>{product.description}</p>}
             <div style={{ display: "flex", gap: "8px", marginTop: "6px" }}>
-            <button className="btn-edit" onClick={() => handleStartEdit(product)}>Edit</button>
-            <button className="btn-delete" onClick={() => handleDelete(product._id)}>Delete</button>
+            <button className="btn-edit" title="Update product details" onClick={() => handleStartEdit(product)}>Edit</button>
+            <button className="btn-delete" title="Remove product from store" onClick={() => handleDelete(product._id)}>Delete</button>
 
             </div>
           </li>
