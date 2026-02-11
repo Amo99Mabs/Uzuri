@@ -8,36 +8,28 @@ const ProductForm = ({ onProductAdded }) => {
     stock: "",
     imageURL: "",
   });
-  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
   
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
-
-    if (!formData.name || !formData.price) {
-      setError("Name and price are required.");
-      return;
-    }
-    if (isNaN(formSata.price)) {
-      setError("Price must be a number.");
-      return;
-    }
-    if (foormData.stock && isNan(formData.stock)) {
-      setError("Stock must be a number.");
-      return;
-    }
-    
     try {
       const res = await fetch("http://localhost:5004/api/products", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
+
+      if (!res.ok) throw new Error("Failed to add product");
+      
       const newProduct = await res.json();
-      onProductAdded(newProduct); // update list
+      onProductAdded(newProduct);
+      
+      setMessage("✅ Product added successfully!"); 
+      setTimeout(() => setMessage(""), 3000);
+      
       setFormData({
         name: "",
         description: "",
@@ -47,6 +39,8 @@ const ProductForm = ({ onProductAdded }) => {
       });
     } catch (err) {
       console.error("Error adding product:", err);
+      setMessage("❌ Error adding product."); 
+      setTimeout(() => setMessage(""), 3000);
     }
   };
   return (
@@ -85,6 +79,7 @@ const ProductForm = ({ onProductAdded }) => {
         placeholder="Image URL"
       />
       <button type="submit">Add product</button>
+        {message && <p>{message}</p>}  
     </form>
   );
 };
