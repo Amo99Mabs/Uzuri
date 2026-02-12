@@ -52,9 +52,10 @@ const ProductList = () => {
     try {
       await deleteProduct(id);
       setProducts((prev) => prev.filter((p) => p._id !== id));
-      setSuccess("Product deleted.");
+      setSuccess("✅ Product deleted successfully!");
     } catch (err) {
-      setError("Delete failed");
+      setError("❌ Error deleting product.");
+      setTimeout(() => setError(""), 3000);
     }
   };
   const handleStartEdit = (product) => {
