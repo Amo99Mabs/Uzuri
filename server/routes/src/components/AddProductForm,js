@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { createProduct } from "../api";
 
 const AddProductForm = ({ onCreated }) => {
-  const [formData, setFormData] = useState({ name: "", price: 0, description: "", stock: 0 });
+  const [formData, setFormData] = useState({ name: "", price: 0, description: "", stock: 0, imageURL: ""});
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [saving, setSaving] = useState(false);
@@ -12,8 +12,14 @@ const AddProductForm = ({ onCreated }) => {
        return () => clearTimeout(timer);
      }
    }, [success]);
+  useEffect(() => {
+     if (error) {
+        const timer = setTimeout(() => setError(""), 3000);
+        return () => clearTimeout(timer); 
+      } 
+     }, [error]);
 
-  const handleChange = (e) => {
+const handleChange = (e) => {
     const { name, value } = e.target;
   setFormData((prev) => ({
   ...prev,
@@ -52,9 +58,9 @@ const handleSubmit = async (e) => {
      const newProduct = await createProduct(formData);
      onCreated(newProduct);
      setFormData({ name: "", price: 0, description: "", stock: 0 });
-     setSuccess("Product added successfully!");
+     setSuccess("✅ Product added successfully!");
   }  catch (err) {
-     setError("Failed to add product.");
+     setError("❌ Failed to add product.");
   }  finally {
      setSaving(false);
   }
@@ -70,7 +76,8 @@ return (
   <input name="price" type="number" value={formData.price} onChange={handleChange} placeholder="Price" required />
   <input name="description" value={formData.description} onChange={handleChange} placeholder="Description" />
   <input name="stock" type="number" value={formData.stock} onChange={handleChange} placeholder="Stock" />
-  <button type="submit" className="btn-edit" disabled={saving}>
+   <input name="imageURL" value={formData.imageURL} onChange={handleChange} placeholder="Image URL" />
+<button type="submit" className="btn-edit" disabled={saving}>
     {saving ? "Saving..." : "Add"} 
   </button> 
 </form> 
