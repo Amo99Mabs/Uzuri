@@ -15,13 +15,14 @@ const ProductList = () => {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
 
+  useEffect(() => { if (success) { const timer = setTimeout(() => setSuccess(""), 3000); return () => clearTimeout(timer); } }, [success]); useEffect(() => { if (error) { const timer = setTimeout(() => setError(""), 3000); return () => clearTimeout(timer); } }, [error]);
+
   const handleUpdated = (updated) => {
     setProducts((prev) =>
       prev.map((p) => (p._id === updated._id ? updated : p))
     );
     setEditing(null);
-    setSuccess("Product updated.");
-    setTimeout(() => setSuccess(""), 3000);
+    setSuccess("✅ Product updated successfully!");
   };
 
   const handleCancelEdit = () => {
@@ -36,7 +37,7 @@ const ProductList = () => {
         const data = await getProducts();
         setProducts(data);
       } catch (err) {
-        setError("Failed to load products.");
+        setError("❌ Failed to load products.");
       } finally {
         setLoading(false);
       }
@@ -83,8 +84,7 @@ const ProductList = () => {
   const highlightMatch = (name) => {
     if (!search) return name;
    const regex = new RegExp(`(${search})`, "gi");
-
-    return name.replace(regex, "<strong>$1</strong>");
+const parts = name.split(regex); return parts.map((part, i) => regex.test(part) ? <strong key={i}>{part}</strong> : part );
   };
   
   return (
@@ -102,7 +102,7 @@ const ProductList = () => {
   <AddProductForm 
      onCreated={(newProduct) => {
      setProducts((prev) => [...prev, newProduct]);
-     setSuccess("Product added.");
+     setSuccess("✅ Product added successfully!");
      setError("");
       }}
     />
