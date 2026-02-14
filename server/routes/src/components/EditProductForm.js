@@ -10,6 +10,8 @@ const EditProductForm = ({ product, onUpdated, onCancel }) => {
   });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  useEffect(() => { if (success) { const timer = setTimeout(() => setSuccess(""), 3000); return () => clearTimeout(timer); } }, [success]); useEffect(() => { if (error) { const timer = setTimeout(() => setError(""), 3000); return () => clearTimeout(timer); } }, [error]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,14 +26,7 @@ const EditProductForm = ({ product, onUpdated, onCancel }) => {
     setSaving(true);
     setError("");
     try {
-      const update = await updateProduct(product._id, formData);
-      onUpdated(updated);
-    } catch (err) {
-      setError("Update failed.");
-    } finally {
-      setSaving(false);
-    }
-  };
+      const updated = await updateProduct(product._id, formData); onUpdated(updated); setSuccess("✅ Product updated successfully!"); } catch (err) { setError("❌ Update failed."); } finally { setSaving(false); } };
     return ( <form onSubmit={handleSubmit} className="product-card"> <h3>Edit product</h3> {error && <p className="error">{error}</p>} <div className="form-grid">
         <label>Name</label>
         <input
@@ -40,6 +35,9 @@ const EditProductForm = ({ product, onUpdated, onCancel }) => {
           onChange={handleChange}
           required
         />
+          <div className="form-grid">
+        <label>Name</label>
+        <input name="name" value={formData.name} onChange={handleChange} required />   
         <lable>Description</lable>
         <input
           name="description"
