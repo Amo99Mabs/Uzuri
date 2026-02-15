@@ -27,7 +27,7 @@ code {
   border-radius: 6px;
   margin-bottom: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  dissplay: block;
+  display: block;
 }
 .product-card:hover {
   transform: translateY(-3px);
@@ -109,7 +109,6 @@ code {
 }
 .product-card input:focus {
   border-color: #2196f3;
-  padding: none;
   box-shadow: 0 0 4px rgba(33, 150, 243, 0.4);
 } 
 .product-card button {
@@ -139,15 +138,73 @@ code {
 }
 
 /* Feedback Messages */ 
-.error {
-  color: #e63946;
-  font-weight: bold;
-  margin: 10px 0;
+.error { 
+  color: #e63946; 
+  font-weight: bold; 
+  margin: 10px 0; 
+} 
+.success { 
+  color: #4caf50; 
+  font-weight: bold; 
+  margin: 10px 0; 
+} /* Reset Button */ 
+.btn-reset { 
+  background: #4caf50; 
+  color: #fff; 
+  border: none; 
+  padding: 6px 12px; 
+  margin-bottom: 12px; 
+  cursor: pointer; 
+  border-radius: 4px; 
+} 
+.btn-reset:hover { 
+  background: #45a049; 
+} /* Input and Button Polish */ 
+.product-card input, .product-card button { 
+  margin: 8px 0; 
+  padding: 10px; 
+  width: 100%; 
+  border-radius: 6px; 
+  font-size: 14px; 
+} 
+.product-card input:focus { 
+  border-color: #2196f3; 
+  box-shadow: 0 0 4px rgba(33, 150, 243, 0.4); 
+} .product-card button { 
+  margin-top: 12px; 
+  padding: 8px 14px; 
+  border: none; 
+  border-radius: 6px; 
+  cursor: pointer; 
+  font-weight: bold; 
+} .product-card button:disabled { 
+  background-color: #ccc; 
+  cursor: not-allowed; 
+} 
+.filters {
+background: #fafafa; 
+  padding: 12px; 
+  border-radius: 8px; 
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.filters input,
+.filters select,
+.filters button {
+  flex: 1;
+  min-width: 150px;
+  margin: 4px 0;
+}
+.btn-edit:hover {
+  background: #e0a800;
+}
+.btn-delete:hover {
+  background: #c53030;
+}
+.product-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+}
+.btn-edit, .btn-delete, .btn-reset {
+  transition: background-color 0.2s ease;
 }
 
-.success {
-  color: #4caf50;
-  font-weight: bold;
-  margin: 10px 0;
-}
-.error { color: #e63946; font-weight: bold; margin: 10px 0; } .success { color: #4caf50; font-weight: bold; margin: 10px 0; } /* Reset Button */ .btn-reset { background: #4caf50; color: #fff; border: none; padding: 6px 12px; margin-bottom: 12px; cursor: pointer; border-radius: 4px; } .btn-reset:hover { background: #45a049; } /* Input and Button Polish */ .product-card input, .product-card button { margin: 8px 0; padding: 10px; width: 100%; border-radius: 6px; font-size: 14px; } .product-card input:focus { border-color: #2196f3; box-shadow: 0 0 4px rgba(33, 150, 243, 0.4); } .product-card button { margin-top: 12px; padding: 8px 14px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; } .product-card button:disabled { background-color: #ccc; cursor: not-allowed; }  
