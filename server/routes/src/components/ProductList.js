@@ -106,17 +106,16 @@ const parts = name.split(regex); return parts.map((part, i) => regex.test(part) 
      setError("");
       }}
     />
+  <div className="filters">   
     <input 
        type="text" 
        placeholder="Search products..." 
        value={search} 
        onChange={(e) => setSearch(e.target.value)}
-       style={{ marginBottom: "12px", padding: "6px", width: "60%" }}
       />
  <select 
   value={category} 
   onChange={(e) => setCategory(e.target.value)} 
-  style={{ marginBottom: "12px", padding: "6px" }} 
 > 
  <option value="">All Categories</option> 
  <option value="Clothing">Clothing</option> 
@@ -126,7 +125,6 @@ const parts = name.split(regex); return parts.map((part, i) => regex.test(part) 
 <select 
  value={sort} 
  onChange={(e) => setSort(e.target.value)} 
- style={{ marginBottom: "12px", padding: "6px" }} 
 > 
  <option value="">Sort by</option> 
  <option value="priceAsc">Price: Low to High</option> 
@@ -141,17 +139,17 @@ const parts = name.split(regex); return parts.map((part, i) => regex.test(part) 
   className="btn-reset">
   Reset Filters
 </button> 
+    </div>
 {sortedProducts.length === 0 ? (
-  <p>No products found.</p>
+  <p>No products found. Try adjusting your filters or add a new product!</p>
   ) : (
       <ul>
         {sortedProducts.map((product) => (
           <li key={product._id} className="product-card">
             <h3>
   {product.imageURL && ( <img src={product.imageURL} alt={product.name} style={{ maxWidth: "120px", borderRadius: "6px", marginBottom: "8px" }} /> )}
-              <Link to={`/products/${product._id`} 
-              dangerouslySetInnerHTML={{ __html: highlightMatch(product.name) }} 
-            />
+              <Link to={`/products/${product._id`} > 
+              {highlightMatch(product.name)} </Link>
               </h3>
             <p>Price: R{product.price}</p>
             {product.description && <p>{product.description}</p>}
