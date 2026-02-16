@@ -4,6 +4,10 @@ A full‑stack product management app built with React, Node.js, and Express. Us
 
 ---
 ## 🚀 Features
+- Add, edit, and delete products with feedback messages
+- Search, filter, and sort products
+- Image support for products
+- Responsive UI with polished styling
 - Full CRUD (Create, Read, Update, Delete) for products
 - Styled product cards with hover effects
 - Success/error feedback messages
@@ -17,6 +21,11 @@ A full‑stack product management app built with React, Node.js, and Express. Us
 - **Delete confirmation prompt** to prevent accidental removals
 - **404 NotFound route** for invalid URLs
 - **React Router integration** for smooth navigation
+
+## 📸 Screenshots 
+![Product List](screenshots/product-list.png) 
+![Add Product Form](screenshots/add-product.png) 
+![Edit Product Form](screenshots/edit-product.png)
 
 ## 🛠️ Tech Stack
 - **Frontend:** React, React Router, CSS
