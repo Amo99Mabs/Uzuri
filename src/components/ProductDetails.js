@@ -6,7 +6,7 @@ const ProductDetails = ({ products }) => {
   const navigate = useNavigate();
   const product = products.find((p) => p._id === id);
 
-  if (!product) return <p>Product not found.</p>;
+  if (!product) return <p className="error">❌ Product not found.</p>;
 
   return ( 
     <div className="product-details-card">
@@ -16,7 +16,7 @@ const ProductDetails = ({ products }) => {
      )} 
      <p><strong>Price:</strong> R{product.price}</p> 
      <p><strong>Stock:</strong> {product.stock}</p>
-     <p>{product.description}</p>
+     <p>{product.description && <p>{product.description}</p>}
        
      {product.category && <p><strong>Category:</strong> {product.category}</p>}
      {product.sku && <p><strong>SKU:</strong> {product.sku}</p>}
