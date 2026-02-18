@@ -1,0 +1,12 @@
+import OpenAI from "openai";
+const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+app.post("/api/search-ai", async (req, res) => {
+  const { query } = req.body;
+  const embedding = await client.embeddings.create({
+    model: "text-embedding-ada-002",
+    input: query,
+  });
+  // Compare embedding with product vectors
+  res.json({ results: matchedProducts });
+});
