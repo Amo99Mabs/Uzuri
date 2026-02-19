@@ -1,13 +1,21 @@
 // server/routes/aiSearch.js
 import express from "express";
 import OpenAI from "openai";
+import Product from "../models/Product.js"; // import your Product model
 
 const router = express.Router();
 const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-// Example: AI-powered semantic search
+// Cosine similarity helper
+const cosineSimilarity = (vecA, vecB) => {
+  const dotProduct = vecA.reduce((sum, a, i) => sum + a * vecB[i], 0);
+  const normA = Math.sqrt(vecA.reduce((sum, a) => sum + a * a, 0));
+  const normB = Math.sqrt(vecB.reduce((sum, b) => sum + b * b, 0));
+  return dotProduct / (normA * normB);
+};
+
 router.post("/search-ai", async (req, res) => {
-  const { query, products } = req.body; // products passed from frontend
+  const { query } = req.body;
 
   try {
     // Generate embedding for the search query
@@ -18,23 +26,18 @@ router.post("/search-ai", async (req, res) => {
 
     const queryEmbedding = embeddingResponse.data[0].embedding;
 
-    // Simple similarity scoring (cosine similarity)
-    const cosineSimilarity = (vecA, vecB) => {
-      const dotProduct = vecA.reduce((sum, a, i) => sum + a * vecB[i], 0);
-      const normA = Math.sqrt(vecA.reduce((sum, a) => sum + a * a, 0));
-      const normB = Math.sqrt(vecB.reduce((sum, b) => sum + b * b, 0));
-      return dotProduct / (normA * normB);
-    };
+    // Fetch products with stored embeddings from DB
+    const products = await Product.find({ embedding: { $exists: true } });
 
-    // Compare query embedding with product descriptions
+    // Compare query embedding with product embeddings
     const results = products
-      .map((p) => {
-        const productEmbedding = p.embedding; // store embeddings in DB
-        return { ...p, score: cosineSimilarity(queryEmbedding, productEmbedding) };
-      })
+      .map((p) => ({
+        ...p.toObject(),
+        score: cosineSimilarity(queryEmbedding, p.embedding),
+      }))
       .sort((a, b) => b.score - a.score);
 
-    res.json({ results });
+    res.json({ results: results.slice(0, 10) }); // return top 10
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "AI search failed." });
@@ -42,3 +45,5 @@ router.post("/search-ai", async (req, res) => {
 });
 
 export default router;
+
+
