@@ -10,6 +10,7 @@ function App() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchQuery, setSearchQuery] =   useState("");
 
   useEffect(() => {
     const fetchProducts = async () => {
