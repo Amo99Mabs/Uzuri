@@ -5,7 +5,13 @@ import ProductList from "./components/ProductList";
 import ProductForm from "./components/ProductForm";
 import NotFound from "./components/NotFound";
 import Spinner from "./components/Spinner";
-import SearchBar from "./components/SearchBar"; // <-- new import
+import SearchBar from "./components/SearchBar";  
+import RefreshEmbeddingsButton from "./components/RefreshEmbeddingsButton";
+
+<ProductForm onProductAdded={handleProductAdded} />
+<RefreshEmbeddingsButton /> {/* new button */}
+<SearchBar setSearchResults={setSearchResults} />
+// <-- new import
 function App() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
