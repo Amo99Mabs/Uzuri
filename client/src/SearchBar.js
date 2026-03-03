@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "./../styles/Search.css";
+
+<form className="search-bar" onSubmit={handleSearch}>
+  <input ... />
+  <button type="submit">Search</button>
+</form>
 
 function SearchBar({ setSearchResults }) {
   const [query, setQuery] = useState("");
