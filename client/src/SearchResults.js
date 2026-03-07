@@ -1,22 +1,52 @@
 import React, { useState } from "react";
 
 function SearchResults({ results }) {
-  const [page, setPage] = useState(1);
-  const resultsPerPage = 10;
+  const [filter, setFilter] = useState("all");
+  const [sortBy, setSortBy] = useState("score");
 
   if (!results || results.length === 0) {
     return <p>No products found.</p>;
   }
 
-  const startIndex = (page - 1) * resultsPerPage;
-  const paginatedResults = results.slice(startIndex, startIndex + resultsPerPage);
-  const totalPages = Math.ceil(results.length / resultsPerPage);
+  // Apply filter
+  const filteredResults = filter === "all"
+    ? results
+    : results.filter((r) => r.category === filter);
+
+  // Apply sorting
+  const sortedResults = [...filteredResults].sort((a, b) => {
+    if (sortBy === "score") return b.score - a.score;
+    if (sortBy === "name") return a.name.localeCompare(b.name);
+    return 0;
+  });
 
   return (
     <div className="search-results">
       <h2>Search Results</h2>
+
+      {/* Filter & Sort Controls */}
+      <div className="controls">
+        <label>
+          Filter by category:
+          <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+            <option value="all">All</option>
+            <option value="clothing">Clothing</option>
+            <option value="shoes">Shoes</option>
+            <option value="accessories">Accessories</option>
+          </select>
+        </label>
+
+        <label>
+          Sort by:
+          <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+            <option value="score">Score</option>
+            <option value="name">Name</option>
+          </select>
+        </label>
+      </div>
+
       <ul>
-        {paginatedResults.map((r) => (
+        {sortedResults.map((r) => (
           <li key={r._id}>
             <img src={r.imageURL} alt={r.name} width="80" />
             <div>
@@ -27,16 +57,6 @@ function SearchResults({ results }) {
           </li>
         ))}
       </ul>
-
-      <div className="pagination">
-        <button disabled={page === 1} onClick={() => setPage(page - 1)}>
-          Previous
-        </button>
-        <span>Page {page} of {totalPages}</span>
-        <button disabled={page === totalPages} onClick={() => setPage(page + 1)}>
-          Next
-        </button>
-      </div>
     </div>
   );
 }
