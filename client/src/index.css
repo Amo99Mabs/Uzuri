@@ -229,3 +229,18 @@ background: #fafafa;
   cursor: not-allowed;
 }
 
+.controls {
+  margin-bottom: 15px;
+  display: flex;
+  gap: 20px;
+}
+
+.controls label {
+  font-weight: bold;
+}
+
+.controls select {
+  margin-left: 8px;
+  padding: 4px;
+}
+
