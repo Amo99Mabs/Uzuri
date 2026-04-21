@@ -7,7 +7,7 @@ const app = express();
 const PORT = 5004;
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json()); 
 app.use("/api/products", productRoutes);
 
 mongoose
