@@ -12,7 +12,7 @@ app.use("/api/products", productRoutes);
 
 mongoose
   .connect("mongodb://127.0.0.1:27017/uzuri", {
-    useNewUrlParser: true,
+    useNewUrlParser: true, 
     useUnifiedTopology: true,  
   })
   .then(() => {
